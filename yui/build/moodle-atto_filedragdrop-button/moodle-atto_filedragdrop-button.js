@@ -153,7 +153,13 @@ Y.namespace('M.atto_filedragdrop').Button = Y.Base.create('button', Y.M.editor_a
                             });
                             newtag = Y.Node.create(newhtml);
                             if (placeholder) {
-                                placeholder.replace(newtag);
+                                var parentLink = placeholder.ancestor('a');
+                                if (parentLink) {
+                                    parentLink.insert(newtag, 'after');
+                                    placeholder.remove(true);
+                                } else {
+                                    placeholder.replace(newtag);
+                                }
                             } else {
                                 self.editor.appendChild(newtag);
                             }
